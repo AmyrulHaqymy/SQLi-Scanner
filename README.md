@@ -1,4 +1,3 @@
-
 <div align="center">
 
 # 🛡️ SQLi SCANNER
@@ -457,19 +456,123 @@ It is used only for educational and controlled security testing.
 
 The scanner can also be evaluated using DVWA, a deliberately vulnerable web application designed for security testing and learning.
 
-DVWA is accessed locally through:
+DVWA is hosted locally using XAMPP. Apache is used as the web server, while MySQL is used for the DVWA database.
+
+#### Step 1: Prepare DVWA in XAMPP
+
+1. Make sure XAMPP Control Panel is open.
+2. Start Apache and MySQL.
+3. Place the DVWA folder inside the XAMPP `htdocs` directory.
+
+Example folder location:
 
 ```text
-http://localhost:4280
+C:\xampp\htdocs\DVWA
 ```
 
-The SQL Injection testing page is:
+#### Step 2: Open DVWA
+
+Open DVWA in your browser using its local address.
+
+Example:
 
 ```text
-http://localhost:4280/vulnerabilities/sqli/?id=1&Submit=Submit
+http://localhost/DVWA/
 ```
 
-DVWA provides different security levels:
+If your DVWA folder has a different name, replace `DVWA` in the URL with your actual folder name.
+
+#### Step 3: Configure the DVWA Database
+
+1. Open the DVWA configuration file:
+
+```text
+C:\xampp\htdocs\DVWA\config\config.inc.php
+```
+
+2. Check the database configuration and make sure it matches your local MySQL settings in XAMPP.
+3. Open the DVWA setup page:
+
+```text
+http://localhost/DVWA/setup.php
+```
+
+4. Click **Create / Reset Database** to initialise the DVWA database.
+5. Return to the DVWA login page.
+
+If the default credentials have not been changed, use:
+
+- **Username:** `admin`
+- **Password:** `password`
+
+#### Step 4: Set DVWA Security Level
+
+1. Log in to DVWA.
+2. Open **DVWA Security** from the navigation menu.
+3. Select **Low** as the security level.
+4. Click **Submit** to save the setting.
+5. Open the **SQL Injection** module.
+
+#### Step 5: Get the DVWA SQL Injection URL
+
+After opening the SQL Injection module, use the URL displayed in your browser.
+
+Example:
+
+```text
+http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit
+```
+
+The `id` parameter is used by the SQL Injection module for testing.
+
+#### Step 6: Get the DVWA Session Cookie
+
+SQLi SCANNER may require an authenticated DVWA session to access the SQL Injection page.
+
+1. Keep DVWA logged in.
+2. Open your browser Developer Tools by pressing `F12`.
+3. Open the **Application** tab.
+4. Select **Cookies** and choose the local DVWA website.
+5. Find the `PHPSESSID` and `security` cookie values.
+6. Copy the values into the scanner's Cookie field using this format:
+
+```text
+PHPSESSID=YOUR_SESSION_ID; security=low
+```
+
+Replace `YOUR_SESSION_ID` with your actual local session ID.
+
+**Important:** Do not share your session cookie or upload it to GitHub.
+
+#### Step 7: Run SQLi SCANNER Against DVWA
+
+1. Open SQLi SCANNER:
+
+```text
+http://localhost/SQLi-SCANNER/
+```
+
+2. Enter the DVWA SQL Injection URL in the target URL field:
+
+```text
+http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit
+```
+
+3. Enter the DVWA session cookie in the Cookie field.
+4. Start the scan.
+5. Review the detection results and risk assessment.
+
+#### Step 8: Review the Results
+
+Check the scanner output for possible:
+
+- Error-Based SQL Injection indicators.
+- Boolean-Based SQL Injection indicators.
+- Time-Based SQL Injection indicators.
+
+For a controlled comparison, you can change the DVWA security level and run the test again. Record the security level and results for your assignment report.
+
+#### DVWA Security Levels
 
 | Security Level | Testing Purpose |
 |---|---|
@@ -478,9 +581,16 @@ DVWA provides different security levels:
 | High | Provides stronger input handling compared with Low. |
 | Impossible | Demonstrates a more secure implementation designed to prevent SQL Injection. |
 
-Testing observations may vary depending on the security level, authentication session, application response and scanner detection logic.
+**Testing Notes:**
 
-**Note:** DVWA is a separate testing application. It requires its own setup and authentication. It is not the same database or PHP page as the project's `vuln.php`.
+- DVWA is a separate testing application and has its own database.
+- The DVWA database is different from the `sqli_lab` database used by `vuln.php`.
+- Make sure Apache and MySQL are running in XAMPP.
+- Make sure the DVWA session cookie is valid.
+- If DVWA redirects to the login page, check the session cookie and log in again.
+- SQLi SCANNER tests GET query parameters only.
+- Detection results are indicators and do not guarantee that a vulnerability exists.
+- Use DVWA only in your own local testing environment.
 
 ---
 
