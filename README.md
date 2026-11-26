@@ -128,7 +128,8 @@ It measures the response time and checks whether the request takes longer than t
 3. Click **Start** for MySQL.
 4. Make sure both services are running.
 
-![XAMPP Control Panel](assets/screenshots/xampp-control-panel.png)
+![XAMPP Control Panel](<img width="833" height="535" alt="WhatsApp Image 2026-11-26 at 8 17 30 PM" src="https://github.com/user-attachments/assets/ec3feab9-25d0-49e2-a8c9-30eb441d401c" />
+)
 
 ### Step 2: Place the Project in htdocs
 
@@ -156,7 +157,8 @@ http://localhost/phpmyadmin
 
 The SQL script creates a sample database for the vulnerable demonstration application.
 
-![phpMyAdmin Database](assets/screenshots/phpmyadmin-database.png)
+![phpMyAdmin Database](<img width="1600" height="869" alt="WhatsApp Image 2026-11-26 at 8 18 37 PM" src="https://github.com/user-attachments/assets/02fa5564-91ec-44a0-ab08-8548f0f0e1d5" />
+)
 
 ### Step 4: Open SQLi SCANNER
 
@@ -203,9 +205,11 @@ ngrok http 80
 4. ngrok will generate a forwarding URL.
 5. Open the HTTPS forwarding URL in a browser to access the local website through the tunnel.
 
-![ngrok Command](assets/screenshots/ngrok-command.png)
+![ngrok Command](<img width="963" height="258" alt="WhatsApp Image 2026-11-26 at 8 21 28 PM" src="https://github.com/user-attachments/assets/a3ba7fcd-ddf5-40c3-96a8-bafe0eed3bc6" />
+)
 
-![ngrok Public URL](assets/screenshots/ngrok-public-url.png)
+![ngrok Public URL](<img width="1481" height="486" alt="WhatsApp Image 2026-11-26 at 8 24 28 PM" src="https://github.com/user-attachments/assets/b26af793-5092-426c-96a1-00a561c33106" />
+)
 
 **Security Warning:**
 
