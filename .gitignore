@@ -1,0 +1,27 @@
+# Runtime account data - DO NOT publish
+auth_data.json
+users.json
+
+# Secrets and local configuration
+.env
+*.env
+config.local.php
+*.key
+*.pem
+secrets/
+
+# Runtime files
+/output/
+/reports/
+*.log
+*.tmp
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Dependencies
+/vendor/
+/node_modules/
