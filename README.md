@@ -346,7 +346,7 @@ Do not publicly disclose vulnerability details without appropriate permission.
 
 ## 13. License
 
-This project is released under the MIIT License.
+This project is released under the MIT License.
 
 See the [LICENSE](LICENSE) file for more information.
 
