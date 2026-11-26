@@ -1,6 +1,11 @@
 
-# SQLi SCANNER
-### A PHP-Based SQL Injection Detection Tool
+<div align="center">
+
+# 🛡️ SQLi SCANNER
+
+### PHP-Based SQL Injection Vulnerability Detection Tool
+
+An educational web application security tool designed to identify potential SQL Injection vulnerabilities through automated detection techniques.
 
 ![PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4?logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/Database-MySQL-4479A1?logo=mysql&logoColor=white)
@@ -8,138 +13,141 @@
 ![Environment](https://img.shields.io/badge/Environment-XAMPP-orange)
 ![Category](https://img.shields.io/badge/Category-Web%20Application%20Security-red)
 
----
+**IKB31603 – Ethical Hacking**
 
-## 1. Project Overview
-
-**SQLi SCANNER** is a PHP-based web application security testing tool developed to identify potential SQL Injection (SQLi) vulnerabilities in web applications.
-
-The tool analyses URL query parameters and performs several basic detection techniques to identify possible SQL Injection indicators. It provides a dashboard where users can initiate scans, review findings, examine risk scores, view scan history, and export reports.
-
-The project is designed for educational purposes and authorised security testing in controlled laboratory environments.
-
-### Project Information
-
-| Item | Description |
-|---|---|
-| Project Name | SQLi SCANNER |
-| Project Type | Web-Based Security Testing Tool |
-| Attack Category | Web Application Attack |
-| Main Language | PHP |
-| Database | MySQL |
-| Local Server | XAMPP |
-| Database Management | phpMyAdmin |
-| Public Demo Tunnel | ngrok |
-| Testing Environment | Local Vulnerable Web Application / DVWA |
-
+</div>
 
 ---
 
-## 2. Project Objectives
+## 🔍 1. Project Overview
+
+SQLi SCANNER is a PHP-based web application designed to detect potential SQL Injection vulnerabilities in web applications.
+
+SQL Injection is a common web security vulnerability that occurs when an application does not properly handle user input before including it in database queries. Attackers may exploit this weakness to manipulate database operations and potentially access information without proper authorization.
+
+This project provides an automated scanning approach to help identify possible SQL Injection weaknesses using different detection techniques.
+
+The scanner is developed for educational and ethical hacking purposes as part of the IKB31603 Ethical Hacking assignment.
+
+The application runs locally using XAMPP, with Apache as the web server and MySQL as the database management system.
+
+---
+
+## 🎯 2. Project Objectives
 
 The main objectives of SQLi SCANNER are:
 
-- To develop a web-based tool that detects potential SQL Injection vulnerabilities.
-- To implement Error-Based, Boolean-Based, and Time-Based SQL Injection detection techniques.
-- To analyse URL query parameters and identify suspicious application responses.
-- To display scan results through a user-friendly dashboard.
-- To provide risk scores and evidence for detected findings.
-- To generate downloadable CSV reports.
-- To promote responsible and authorised security testing.
+- To develop a web-based tool that can identify potential SQL Injection vulnerabilities.
+- To understand how SQL Injection attacks affect vulnerable web applications.
+- To implement automated detection techniques such as Error-Based, Boolean-Based and Time-Based detection.
+- To evaluate the scanner using controlled testing environments.
+- To generate scan results that help users understand potential security weaknesses.
+- To promote awareness of secure web application development and ethical security testing.
 
 ---
 
-## 3. Features
+## 🎯 3. Attack Category
 
-### 3.1 SQL Injection Detection
+**Primary Attack Category:** SQL Injection (SQLi)
 
-SQLi SCANNER implements three basic SQL Injection detection techniques:
+SQL Injection is a web application injection vulnerability that occurs when untrusted user input is included in SQL queries without proper validation or parameterization.
 
-| Detection Technique | Description |
+SQLi SCANNER focuses on identifying potential SQL Injection indicators through the following detection categories:
+
+| Attack Category | Description |
 |---|---|
-| Error-Based Detection | Checks whether modified input causes database-related error messages to appear in the response. |
-| Boolean-Based Detection | Compares responses from true and false SQL conditions to identify differences in application behaviour. |
-| Time-Based Detection | Checks whether a specially crafted test input causes a noticeable response delay. |
+| Error-Based SQL Injection | Uses database error messages to identify possible SQL Injection weaknesses. |
+| Boolean-Based Blind SQL Injection | Compares application responses when different logical conditions are supplied. |
+| Time-Based Blind SQL Injection | Checks for unusual response delays that may indicate time-based SQL Injection behaviour. |
 
-### 3.2 Dashboard
+These techniques help identify possible weaknesses in the way web applications process user input.
 
-The dashboard provides an overview of scan activities, including:
-
-- Total scans completed.
-- Number of scans with findings.
-- Total findings detected.
-- Number of HTTP requests sent.
-- Latest scan results.
-- Risk score visualisation.
-- Detection technique statistics.
-
-### 3.3 Scan History
-
-The application provides a scan history section where users can:
-
-- Review previous scans in the current PHP session.
-- View scan details.
-- Open individual scan reports.
-- Clear the scan history.
-
-**Note:** Scan history is maintained using PHP sessions and is limited to the latest 15 scans. It is not permanent database storage.
-
-### 3.4 Scan Reports
-
-Each scan report provides information such as:
-
-- Target URL.
-- Scan date and time.
-- Number of tested parameters.
-- Number of affected parameters.
-- Detection techniques.
-- Severity levels.
-- Risk score.
-- Scan duration.
-- Number of HTTP requests.
-
-### 3.5 CSV Export
-
-Users can export scan results into CSV format for documentation, further analysis, and reporting.
-
-### 3.6 Local Laboratory Target Restriction
-
-The scanner includes a basic target validation function intended to restrict scanning to localhost and private-network targets.
-
-This restriction is a safety measure for laboratory testing. It should not be treated as a complete security boundary or a replacement for an explicit target allowlist.
+**Note:** The scanner performs detection and analysis. It does not perform full database extraction or exploitation.
 
 ---
 
-## 4. System Requirements
+## 🔄 4. Attack Lifecycle Mapping
 
-Before running SQLi SCANNER, make sure the following software is installed:
+SQLi SCANNER supports selected stages of an authorized security testing process.
 
-| Software | Requirement | Purpose |
+The following table maps the scanner's functionality to relevant attack lifecycle activities.
+
+| Attack Lifecycle Stage | Description | SQLi SCANNER Activity |
 |---|---|---|
-| XAMPP | Required | Runs Apache and MySQL |
-| PHP | PHP 8.0 or later | Executes the application |
-| MySQL | Included with XAMPP | Stores vulnerable test application data |
-| phpMyAdmin | Included with XAMPP | Manages the database |
-| Web Browser | Required | Accesses the application |
-| ngrok | Optional | Provides a temporary public demo URL |
+| Reconnaissance | Identify the target application and available input points. | The user provides an authorized target URL containing GET parameters. |
+| Vulnerability Identification | Identify potential weaknesses in the application. | The scanner tests for Error-Based, Boolean-Based and Time-Based SQL Injection indicators. |
+| Validation | Analyse application responses to identify suspicious behaviour. | The scanner compares error messages, response lengths and response times. |
+| Reporting | Document and communicate potential security findings. | The scanner displays findings, risk scores and scan reports. |
 
-### PHP Extensions
+### Lifecycle Scope
 
-The following PHP extensions should be enabled:
+The scanner primarily focuses on vulnerability identification, response analysis and reporting.
 
-- mysqli
-- curl
+It does not implement every stage of a complete penetration testing or cyberattack lifecycle.
 
-The application uses PHP cURL to send HTTP requests to testing targets.
+The tool does not perform:
+
+- Full exploitation of identified vulnerabilities.
+- Database extraction.
+- Privilege escalation.
+- Persistence.
+- Post-exploitation activities.
+
+All testing should be conducted within an authorized and controlled environment.
 
 ---
 
-## 5. Repository Structure
+## ⚙️ 5. Key Features
 
-The project files should be organised as follows:
+| Feature | Description |
+|---|---|
+| User Authentication | Provides an authentication mechanism for accessing the scanner. |
+| SQL Injection Scanner | Performs automated tests against submitted URLs. |
+| Error-Based Detection | Identifies possible SQL errors from server responses. |
+| Boolean-Based Detection | Compares responses generated by true and false conditions. |
+| Time-Based Detection | Checks for unusual response delays caused by time-based payloads. |
+| Risk Scoring | Assigns risk scores based on detected indicators. |
+| Scan History | Keeps recent scan records using PHP sessions. |
+| Scan Report | Displays individual scan findings and related information. |
+| CSV Export | Allows scan results to be exported in CSV format. |
+| Vulnerable Test Page | Provides a controlled vulnerable PHP page for testing. |
+
+---
+
+## 💻 6. Technologies Used
+
+The project uses the following technologies and tools:
+
+| Technology / Tool | Purpose |
+|---|---|
+| PHP | Main programming language used to develop the scanner. |
+| MySQL | Database management system. |
+| Apache | Local web server provided by XAMPP. |
+| phpMyAdmin | Web-based interface for managing the MySQL database. |
+| HTML | Structures the web application interface. |
+| CSS | Styles the application interface. |
+| JavaScript | Supports client-side interface functionality. |
+| cURL | Sends HTTP requests during scanning. |
+| XAMPP | Local development environment. |
+| ngrok | Creates a temporary public URL for demonstration purposes. |
+| DVWA | Provides a controlled environment for SQL Injection testing. |
+| Visual Studio Code | Code editor used during development. |
+
+---
+
+## 📁 7. Repository Structure
+
+The repository contains the following main files:
 
 ```text
 SQLi-SCANNER/
+│
+├── assets/
+│   └── screenshots/
+│       ├── xampp-control-panel.png
+│       ├── phpmyadmin-database.png
+│       ├── ngrok-command.png
+│       └── ngrok-public-url.png
 │
 ├── index.php
 ├── auth.php
@@ -149,65 +157,101 @@ SQLi-SCANNER/
 ├── report.php
 ├── vuln.php
 ├── setup.sql
-│
 ├── .gitignore
 ├── LICENSE
-├── README.md
-│
-└── assets/
-    └── screenshots/
-        ├── xampp-control-panel.jpeg
-        ├── phpmyadmin-database.jpeg
-        ├── ngrok-command.jpeg
-        └── ngrok-public-url.jpeg
+└── README.md
 ```
 
-**Important:**
+### Main Files Description
 
-- `index.php` contains the main scanner dashboard and detection logic.
-- `auth.php` handles authentication-related functions.
-- `login.php` handles administrator login and initial account setup.
-- `logout.php` handles logout.
-- `history.php` displays scan history.
-- `report.php` displays individual scan reports.
-- `vuln.php` is an intentionally vulnerable PHP page used for testing.
-- `setup.sql` creates the database and sample records.
-- `auth_data.json` is generated when the initial administrator account is created. It should not be committed to GitHub.
+| File | Description |
+|---|---|
+| `index.php` | Main dashboard and SQL Injection scanning functionality. |
+| `auth.php` | Handles authentication-related functions. |
+| `login.php` | Login and initial administrator account setup. |
+| `logout.php` | Handles user logout. |
+| `history.php` | Displays recent scan history. |
+| `report.php` | Displays individual scan reports. |
+| `vuln.php` | Intentionally vulnerable PHP page used for testing. |
+| `setup.sql` | SQL script for creating the testing database and sample table. |
+| `README.md` | Project documentation. |
 
-The repository structure above is the intended organisation. If your actual folder or screenshot filenames differ, update the names accordingly.
+**Security Note:** The `auth_data.json` file is generated during initial administrator setup. It contains authentication-related information and must not be uploaded to a public GitHub repository.
 
 ---
 
-## 6. Installation and Setup
+## 🖥️ 8. System Requirements
 
-Follow these steps to install and run SQLi SCANNER locally.
+### Hardware Requirements
+
+- Windows-based computer.
+- Minimum 4 GB RAM recommended.
+- Sufficient storage space for XAMPP and project files.
+- Internet connection for downloading required tools and using ngrok.
+
+### Software Requirements
+
+- Windows 10 or Windows 11.
+- PHP 8.0 or later.
+- XAMPP.
+- MySQL / MariaDB.
+- phpMyAdmin.
+- Visual Studio Code.
+- ngrok (optional, for public demonstration).
+
+### Required PHP Extensions
+
+Make sure the following PHP extensions are enabled:
+
+- `mysqli`
+- `curl`
+
+---
+
+## 🚀 9. Installation and Setup
+
+Follow the steps below to install and run SQLi SCANNER locally.
 
 ### Step 1: Install XAMPP
 
-Download and install XAMPP if it is not already installed.
+Download and install XAMPP.
 
 Official website:
 
 https://www.apachefriends.org/
 
-### Step 2: Start Apache and MySQL
+After installation:
 
 1. Open XAMPP Control Panel.
-2. Click **Start** for Apache.
-3. Click **Start** for MySQL.
+2. Start Apache.
+3. Start MySQL.
 4. Make sure both services are running.
 
-Screenshot:
+### Step 2: Clone the Repository
 
-![XAMPP Control Panel](assets/screenshots/xampp-control-panel.jpeg)
+Open your terminal and run:
 
-### Step 3: Copy the Project into htdocs
+```bash
+git clone https://github.com/YOUR-USERNAME/SQLi-SCANNER.git
+```
 
-1. Locate your XAMPP installation folder.
-2. Open the `htdocs` directory.
-3. Copy the SQLi SCANNER project folder into `htdocs`.
+Navigate into the project directory:
 
-Example:
+```bash
+cd SQLi-SCANNER
+```
+
+Alternatively, download the repository as a ZIP file and extract it.
+
+### Step 3: Move the Project into XAMPP
+
+Copy the project folder into:
+
+```text
+C:\xampp\htdocs\
+```
+
+The project directory should look like:
 
 ```text
 C:\xampp\htdocs\SQLi-SCANNER\
@@ -215,287 +259,271 @@ C:\xampp\htdocs\SQLi-SCANNER\
 
 ### Step 4: Create the Database
 
-1. Open your web browser.
-2. Visit:
+1. Open your browser.
+2. Navigate to:
 
 ```text
 http://localhost/phpmyadmin
 ```
 
-3. Select the **Import** tab.
-4. Choose the `setup.sql` file from the project folder.
-5. Click **Import** or **Go**.
-6. Confirm that the database and sample table have been created.
+3. Open the SQL tab.
+4. Import or execute the provided `setup.sql` script.
+5. Make sure the database and required tables are created successfully.
 
-The SQL setup file creates the `sqli_lab` database and its sample `users` table.
+The testing database used by `vuln.php` is:
 
-Screenshot:
-
-![phpMyAdmin Database](assets/screenshots/phpmyadmin-database.jpeg)
-
-### Step 5: Check Database Configuration
-
-The vulnerable testing page uses the following default MySQL connection:
-
-```php
-mysqli_connect("localhost", "root", "", "sqli_lab");
+```text
+sqli_lab
 ```
 
-If your MySQL username, password, or database configuration is different, update the connection settings in `vuln.php`.
+The sample table is:
 
-For a local XAMPP installation, the default root account may have an empty password. Configure it according to your own environment.
-
-### Step 6: Enable PHP cURL
-
-The scanner requires the PHP cURL extension.
-
-1. Open the XAMPP installation directory.
-2. Locate the `php.ini` configuration file.
-3. Search for:
-
-```ini
-;extension=curl
+```text
+users
 ```
 
-4. Remove the semicolon if the extension is disabled:
+### Step 5: Configure PHP Extensions
+
+Open the XAMPP PHP configuration file:
+
+```text
+C:\xampp\php\php.ini
+```
+
+Check that these extensions are enabled:
 
 ```ini
+extension=mysqli
 extension=curl
 ```
 
-5. Save the file.
-6. Restart Apache from XAMPP Control Panel.
+If an extension is disabled, remove the semicolon (`;`) at the beginning of its configuration line.
 
-### Step 7: Open SQLi SCANNER
+Save the changes and restart Apache.
 
-Open your browser and access:
+### Step 6: Open SQLi SCANNER
+
+Open your browser and visit:
 
 ```text
 http://localhost/SQLi-SCANNER/
 ```
 
-If the project folder has a different name, replace `SQLi-SCANNER` with the actual folder name.
-
-### Step 8: Initial Administrator Setup
-
-On the first login, follow the initial account setup process provided by `login.php`.
-
-Create the administrator account and use the account credentials to access the dashboard.
-
-The application stores the administrator account information in `auth_data.json`, with the password protected using PHP password hashing.
-
-Keep this file private and do not upload it to a public repository.
+The application should now be accessible through the local web server.
 
 ---
 
-## 7. How to Use SQLi SCANNER
+## 🔎 10. How to Use
 
-### Step 1: Login
+After successfully setting up the application, follow these steps.
 
-Open the application and log in using the administrator account.
+### Step 1: Open the Application
 
-### Step 2: Enter a Target URL
+Navigate to the SQLi SCANNER local URL:
 
-Navigate to the dashboard and locate the **New Scan** section.
+```text
+http://localhost/SQLi-SCANNER/
+```
 
-Enter a target URL containing query parameters.
+### Step 2: Login
 
-Example:
+Log in using the administrator account configured during the initial setup.
+
+### Step 3: Enter the Target URL
+
+Enter the URL that you want to test.
+
+Example using the included local vulnerable test page:
 
 ```text
 http://localhost/SQLi-SCANNER/vuln.php?id=1
 ```
 
-The scanner currently analyses GET query parameters.
+### Step 4: Start Scanning
 
-### Step 3: Provide an Optional Cookie
+Start the scanning process.
 
-For authenticated laboratory applications, users can provide an optional session cookie.
-
-Example format:
-
-```text
-PHPSESSID=your_session_id; security=low
-```
-
-Only use session cookies belonging to your own authorised test environment.
-
-Do not share real session cookies or commit them to GitHub.
-
-### Step 4: Start the Scan
-
-Click the **Start Scan** button.
-
-The scanner sends HTTP requests using its detection techniques and analyses the returned responses.
+The scanner sends automated HTTP requests to the target URL and analyses the responses.
 
 ### Step 5: Review the Results
 
-After the scan finishes, review the dashboard and scan report.
+After scanning is completed, review the displayed information, including:
 
-The results may include:
-
+- Target URL.
 - Detection technique.
-- Affected parameter.
-- Evidence.
-- Severity.
+- Potential vulnerability indicators.
 - Risk score.
-- Recommended remediation.
+- Severity level.
+- Scan findings.
 
-### Step 6: Export the Report
+### Step 6: View Scan History and Reports
 
-Use the CSV export function to download the scan results.
+Users can access recent scan records and individual reports through the application's history and report pages.
 
-The exported file can be opened using spreadsheet applications for documentation and further analysis.
+Scan results can also be exported in CSV format.
 
----
+**Usage Example:**
 
-## 8. SQL Injection Detection Techniques
-
-SQLi SCANNER uses three detection techniques.
-
-### 8.1 Error-Based SQL Injection
-
-Error-based detection checks whether unexpected input causes SQL-related error messages to appear in the HTTP response.
-
-The scanner tests input variations such as quotation marks and checks for recognised database error signatures.
-
-Examples of checked error indicators include:
-
-- MySQL syntax errors.
-- mysqli-related errors.
-- PostgreSQL query errors.
-- SQLite-related errors.
-- SQLSTATE.
-- ODBC errors.
-
-A detected error indicator may suggest that user input is being processed unsafely by a database query.
-
-### 8.2 Boolean-Based SQL Injection
-
-Boolean-based detection compares the responses generated by true and false SQL conditions.
-
-The scanner checks whether:
-
-- A true condition produces a response similar in length to the original page.
-- A false condition produces a different response length.
-
-A difference in response behaviour may indicate that the input affects the underlying SQL query.
-
-### 8.3 Time-Based SQL Injection
-
-Time-based detection checks whether a test input causes a noticeable delay in the server response.
-
-The scanner uses a test payload containing:
-
-```sql
-' AND SLEEP(3)-- -
-```
-
-It then compares the response time with the baseline response time.
-
-A noticeable delay may indicate possible time-based SQL Injection behaviour.
-
-**Important:** These techniques are heuristic checks. A detection result is an indicator that requires manual verification, not definitive proof of a vulnerability.
-
----
-
-## 9. Risk Scoring and Severity
-
-The scanner assigns severity levels to findings based on the detection technique.
-
-| Detection Technique | Severity | Score Weight |
-|---|---|---:|
-| Boolean-Based | Critical | 45 |
-| Error-Based | High | 30 |
-| Time-Based | High | 30 |
-
-The total risk score is calculated using the weights assigned to detected findings.
-
-The maximum displayed score is capped at 100.
-
-### Risk Categories
-
-| Risk Score | Category |
-|---|---|
-| 0–29 | Low Risk |
-| 30–69 | Elevated Risk |
-| 70–100 | Critical Risk |
-
-The risk score is an internal prioritisation indicator, not a formal CVSS score or a measure of confirmed exploitability.
-
----
-
-## 10. Testing Environment
-
-SQLi SCANNER is intended to be tested using controlled laboratory applications.
-
-### 10.1 Custom Vulnerable PHP Application
-
-The project includes `vuln.php`, an intentionally vulnerable PHP page.
-
-It contains an unsafe SQL query that directly combines user input with SQL statements.
-
-Example:
-
-```php
-$id = $_GET['id'] ?? '1';
-
-$sql = "SELECT username, email FROM users WHERE id = '$id'";
-```
-
-This page is intentionally insecure so that the scanner can be tested against a known vulnerable application.
-
-Example test URL:
+The following is an example of a local testing URL:
 
 ```text
 http://localhost/SQLi-SCANNER/vuln.php?id=1
 ```
 
-**Warning:** Never deploy `vuln.php` on a public production server.
-
-### 10.2 DVWA (Optional)
-
-Damn Vulnerable Web Application (DVWA) is another intentionally vulnerable application that can be used as an additional SQL Injection testing environment.
-
-Official repository:
-
-https://github.com/digininja/DVWA
-
-DVWA can be configured locally as a separate testing application.
-
-When testing authenticated DVWA pages, the appropriate session cookie may be required.
-
-The scanner and DVWA are separate applications. Their database configurations are not interchangeable.
-
-Only test DVWA installations that you own or are authorised to assess.
+This URL is intended for testing against the project's own vulnerable PHP page. Only scan systems for which you have explicit authorization.
 
 ---
 
-## 11. Ngrok Public Demonstration
+## 🧪 11. SQL Injection Detection Techniques
 
-ngrok is used to provide a temporary public URL for demonstrating the local web application.
+SQLi SCANNER implements three main detection techniques.
 
-It allows another person, such as a lecturer or group member, to access the demonstration website through a public forwarding URL.
+### 11.1 Error-Based Detection
 
-### Step 1: Start XAMPP
+Error-Based Detection checks whether specially crafted input causes database-related error messages to appear in the server response.
 
-Make sure Apache is running in XAMPP Control Panel.
+The scanner looks for common database error indicators, including:
 
-### Step 2: Open the Terminal
+- MySQL
+- MySQLi
+- PostgreSQL
+- SQLite
+- SQLSTATE
+- ODBC
+- SQL syntax errors
 
-Open Command Prompt or PowerShell.
+The presence of these indicators may suggest that user input is being handled insecurely.
 
-### Step 3: Start ngrok
+### 11.2 Boolean-Based Detection
 
-If ngrok is installed and configured, run:
+Boolean-Based Detection compares the responses generated by two different conditions:
+
+- A condition that evaluates to TRUE.
+- A condition that evaluates to FALSE.
+
+The scanner compares the response lengths to identify unusual differences.
+
+Significant differences may indicate that the application behaves differently depending on the SQL condition.
+
+### 11.3 Time-Based Detection
+
+Time-Based Detection checks whether a specially crafted SQL condition causes an unusual response delay.
+
+The scanner uses a time-based payload containing:
+
+```sql
+SLEEP(3)
+```
+
+The response time is compared against a baseline response.
+
+An unusual delay may indicate a possible time-based SQL Injection vulnerability.
+
+**Important:** These techniques identify potential indicators. Their results should be manually verified before concluding that a vulnerability exists.
+
+---
+
+## 🧰 12. Testing Environment
+
+SQLi SCANNER is tested using controlled environments to evaluate its detection functionality.
+
+### 12.1 Custom Vulnerable PHP Page (`vuln.php`)
+
+The project includes an intentionally vulnerable PHP page called:
+
+```text
+vuln.php
+```
+
+This page is used as a controlled target for testing SQL Injection detection.
+
+The page connects to the MySQL database using:
+
+```php
+mysqli_connect("localhost", "root", "", "sqli_lab");
+```
+
+The vulnerable query uses direct user-input concatenation:
+
+```sql
+SELECT username, email FROM users WHERE id = '$id'
+```
+
+This implementation is intentionally insecure and demonstrates how unvalidated user input can affect SQL queries.
+
+It is used only for educational and controlled security testing.
+
+### 12.2 Damn Vulnerable Web Application (DVWA)
+
+The scanner can also be evaluated using DVWA, a deliberately vulnerable web application designed for security testing and learning.
+
+DVWA is accessed locally through:
+
+```text
+http://localhost:4280
+```
+
+The SQL Injection testing page is:
+
+```text
+http://localhost:4280/vulnerabilities/sqli/?id=1&Submit=Submit
+```
+
+DVWA provides different security levels:
+
+| Security Level | Testing Purpose |
+|---|---|
+| Low | Provides a less restrictive environment for SQL Injection testing. |
+| Medium | Introduces additional restrictions to test detection behaviour. |
+| High | Provides stronger input handling compared with Low. |
+| Impossible | Demonstrates a more secure implementation designed to prevent SQL Injection. |
+
+Testing observations may vary depending on the security level, authentication session, application response and scanner detection logic.
+
+**Note:** DVWA is a separate testing application. It requires its own setup and authentication. It is not the same database or PHP page as the project's `vuln.php`.
+
+---
+
+## 🌐 13. Ngrok Public Demonstration
+
+SQLi SCANNER uses ngrok to create a temporary public URL for demonstration purposes.
+
+Normally, the application runs locally through:
+
+```text
+http://localhost/SQLi-SCANNER/
+```
+
+A local application is only accessible from the local machine unless additional network access is configured.
+
+Ngrok allows the local web server to be accessed through a temporary public URL.
+
+### Step 1: Install Ngrok
+
+Download ngrok from:
+
+https://ngrok.com/
+
+Complete the installation and account configuration.
+
+### Step 2: Start XAMPP
+
+Open XAMPP Control Panel and make sure:
+
+- Apache is running.
+- MySQL is running.
+
+### Step 3: Start the Ngrok Tunnel
+
+Open a terminal and execute:
 
 ```bash
 ngrok http 80
 ```
 
-### Step 4: Copy the Forwarding URL
+### Step 4: Access the Public URL
 
-ngrok will generate a public HTTPS forwarding URL.
+Ngrok will generate a public forwarding URL.
 
 Example:
 
@@ -503,288 +531,226 @@ Example:
 https://example.ngrok-free.app
 ```
 
-Use the generated URL to access the demonstration website.
+Use the generated URL to demonstrate the application externally.
 
-Screenshots:
+**Security Warning:**
 
-![ngrok Command](assets/screenshots/ngrok-command.jpeg)
+- Ngrok creates public access to your local web server.
+- Do not expose phpMyAdmin, database credentials or administrator setup files.
+- Do not publicly expose intentionally vulnerable pages such as `vuln.php` or DVWA.
+- Do not share authentication cookies or session information.
+- Stop the ngrok tunnel after the demonstration.
 
-![ngrok Public URL](assets/screenshots/ngrok-public-url.jpeg)
-
-### Security Warning
-
-A public ngrok URL exposes the local web application to external visitors while the tunnel is active.
-
-- Use ngrok only for a controlled demonstration.
-- Do not expose phpMyAdmin.
-- Do not expose database administration interfaces.
-- Do not expose vulnerable test pages such as `vuln.php` or DVWA.
-- Never share administrator credentials or session cookies.
-- Stop the ngrok tunnel immediately after the demonstration.
-
-The scanner's target validation is designed for localhost and private-network testing. A public ngrok URL should not be treated as an authorised scanning target.
+Use ngrok only for authorized demonstrations and controlled environments.
 
 ---
 
-## 12. Attack Lifecycle Mapping
+## 📊 14. Risk Scoring and Severity
 
-SQLi SCANNER supports the vulnerability assessment and analysis stages of the ethical hacking lifecycle.
+SQLi SCANNER assigns risk scores based on the detection indicators identified during scanning.
 
-| Lifecycle Stage | Application Activity |
-|---|---|
-| Reconnaissance | The tester identifies the authorised web application and its URL parameters. |
-| Scanning | The scanner sends test requests to identify possible SQL Injection indicators. |
-| Vulnerability Analysis | The application analyses response content, response differences, and response timing. |
-| Reporting | The scanner presents findings, severity levels, risk scores, and evidence. |
-| Remediation | The report provides recommendations to help developers fix potential SQL Injection weaknesses. |
-| Verification | The tester can perform another authorised scan after remediation to check whether the indicators remain. |
+The current scoring configuration is:
 
-**Scope:** SQLi SCANNER is a detection and reporting tool. It does not perform full exploitation, database extraction, privilege escalation, or post-exploitation activities.
+| Detection Technique | Severity | Risk Score |
+|---|---|---:|
+| Boolean-Based | Critical | 45 |
+| Error-Based | High | 30 |
+| Time-Based | High | 30 |
 
----
+The total risk score is capped at 100.
 
-## 13. Ethical Considerations
+The scoring mechanism helps users understand the potential risk indicated by the scanner's findings.
 
-SQLi SCANNER is developed for educational and authorised security testing.
-
-Users must ensure that every scan is conducted within a clearly defined scope.
-
-The project follows these ethical principles:
-
-- Obtain permission before testing any application.
-- Use localhost or private laboratory environments by default.
-- Avoid scanning systems owned by other individuals or organisations without written authorisation.
-- Do not attempt to extract, modify, or delete sensitive information.
-- Do not use the tool to disrupt services.
-- Protect administrator credentials and session cookies.
-- Stop testing if unexpected behaviour or service disruption occurs.
-- Report discovered vulnerabilities responsibly.
+**Important:** The risk score is a heuristic assessment based on detection indicators. It does not represent a confirmed vulnerability or a complete security assessment.
 
 ---
 
-## 14. Rules of Engagement (RoE)
+## ⚖️ 15. Ethical Considerations
 
-The following Rules of Engagement define how SQLi SCANNER should be used.
+SQLi SCANNER is developed strictly for educational purposes, authorized penetration testing and controlled security research.
 
-### 14.1 Authorised Scope
+Users must follow responsible security testing practices.
 
-Permitted targets:
+Key ethical principles include:
+
+- Obtain permission before testing any system.
+- Respect system ownership and user privacy.
+- Avoid accessing confidential or sensitive information.
+- Do not modify or destroy data.
+- Limit testing to the approved scope.
+- Report potential vulnerabilities responsibly.
+- Stop testing if unexpected or harmful behaviour occurs.
+
+The tool must not be used for unauthorized access, malicious activities or illegal purposes.
+
+---
+
+## 📋 16. Rules of Engagement (RoE)
+
+Rules of Engagement (RoE) define the boundaries and conditions for conducting authorized security testing.
+
+Before using SQLi SCANNER, the following rules must be followed:
+
+### 16.1 Authorization
+
+Obtain explicit permission from the system owner before conducting any scan.
+
+### 16.2 Scope Definition
+
+Only test systems, applications and URLs that are included in the approved testing scope.
+
+### 16.3 Testing Environment
+
+Use controlled environments such as:
 
 - Localhost applications.
-- Private-network laboratory systems.
-- Intentionally vulnerable applications.
-- Systems covered by explicit written authorisation.
+- The project's own vulnerable PHP test page.
+- DVWA installed locally.
+- Other explicitly authorized testing environments.
 
-Targets outside the approved scope must not be tested.
-
-### 14.2 Testing Time Window
-
-Testing should only take place during the approved laboratory or assessment period.
-
-For external authorised assessments, the testing time window must be agreed upon with the system owner.
-
-### 14.3 Permitted Techniques
-
-The scanner is designed to perform:
-
-- Error-Based SQL Injection checks.
-- Boolean-Based SQL Injection checks.
-- Time-Based SQL Injection checks.
-
-### 14.4 Prohibited Activities
+### 16.4 Testing Restrictions
 
 Users must not:
 
-- Scan public websites without permission.
-- Extract real user information or database contents.
+- Scan third-party systems without authorization.
+- Attempt unauthorized database extraction.
 - Modify or delete production data.
 - Perform denial-of-service testing.
-- Attempt privilege escalation.
-- Use the tool for unauthorised access.
+- Bypass access controls outside the approved scope.
+- Share sensitive testing information publicly.
 
-### 14.5 Emergency Stop Procedure
+### 16.5 Emergency Stop
 
-If unexpected behaviour, excessive delays, or service disruption occurs:
+Stop scanning immediately if unexpected system behaviour, service disruption or potential damage occurs.
 
-1. Stop initiating additional scans.
-2. If the request is still running under XAMPP, stop the Apache service through XAMPP Control Panel to terminate the local web request.
-3. Check the application and server logs.
-4. Inform the system owner or laboratory supervisor if the test environment is affected.
+The current application does not include an in-app emergency kill switch. The Apache service can be stopped manually through XAMPP to stop the local web application.
 
-**Current implementation note:** The application does not currently provide a dedicated in-app kill switch to cancel an active scan. Stopping Apache is a manual emergency measure and will also make the local application temporarily unavailable.
+### 16.6 Evidence Collection
 
----
+Collect only the minimum evidence required to demonstrate a potential vulnerability.
 
-## 15. Responsible Disclosure
-
-If a potential SQL Injection vulnerability is discovered during an authorised assessment, the tester should follow responsible disclosure practices.
-
-The recommended process is:
-
-1. Record the affected URL and parameter.
-2. Document the detection technique and observed evidence.
-3. Avoid accessing or collecting sensitive information.
-4. Notify the system owner or designated security contact.
-5. Provide a clear explanation of the potential impact.
-6. Recommend appropriate remediation.
-7. Allow the organisation to investigate and resolve the issue.
-8. Verify the remediation only with permission.
-
-Do not publicly disclose vulnerability details before the responsible disclosure process has been completed.
+Avoid collecting confidential data or personal information.
 
 ---
 
-## 16. Recommended Remediation
+## 📢 17. Responsible Disclosure
 
-Developers should apply secure coding practices to prevent SQL Injection vulnerabilities.
+If a potential vulnerability is identified during authorized testing, users should follow responsible disclosure practices.
 
-Recommended security measures include:
+Recommended steps:
 
-### Use Prepared Statements
+1. Document the potential vulnerability.
+2. Record the affected application and relevant URL.
+3. Include the detection technique and observed behaviour.
+4. Provide appropriate evidence without exposing sensitive information.
+5. Report the finding to the system owner through an approved communication channel.
+6. Allow the responsible party reasonable time to investigate and address the issue.
+7. Avoid publicly disclosing sensitive vulnerability details without authorization.
 
-Use PDO or MySQLi prepared statements instead of directly concatenating user input into SQL queries.
-
-Example using MySQLi:
-
-```php
-$stmt = $db->prepare(
-    "SELECT username, email FROM users WHERE id = ?"
-);
-
-$stmt->bind_param("i", $id);
-$stmt->execute();
-```
-
-### Additional Recommendations
-
-- Validate and sanitise user input appropriately.
-- Use parameterised database queries.
-- Hide detailed SQL error messages from public users.
-- Use database accounts with least-privilege permissions.
-- Keep PHP and database software updated.
-- Log errors securely for administrator review.
-- Apply secure session management.
+Responsible disclosure helps organizations address security weaknesses while reducing the risk of harm to affected systems and users.
 
 ---
 
-## 17. Data Handling and Privacy
+## 🔐 18. Data Handling and Privacy
 
-SQLi SCANNER processes HTTP responses and scan information during testing.
+Users should avoid submitting sensitive information during testing.
 
-The application maintains scan history using PHP sessions.
+The application handles scan information according to its current implementation.
 
-Users should take the following precautions:
+- Scan history is stored using PHP sessions.
+- Recent scan history is limited to 15 records.
+- Scan history is not permanent MySQL database storage.
+- CSV export is available for scan results.
+- Authentication-related information is stored separately in `auth_data.json` during initial account setup.
 
-- Do not scan URLs containing sensitive personal information.
-- Do not use real production session cookies.
-- Do not upload authentication data to public repositories.
-- Keep generated authentication files private.
-- Clear scan history when it is no longer required.
-- Avoid sharing CSV reports containing sensitive target information.
+The `auth_data.json` file should be excluded from public repositories.
 
-The scanner is intended for local educational testing and does not provide a permanent secure evidence-management system.
-
----
-
-## 18. Limitations
-
-SQLi SCANNER is an educational project and has several technical limitations.
-
-1. **GET Parameters Only:** The current implementation analyses URL query parameters. It does not perform comprehensive testing of POST parameters, JSON bodies, or other request formats.
-
-2. **Heuristic Detection:** Detection is based on response content, response length, and timing. These indicators can produce false positives or false negatives.
-
-3. **Limited Database Signatures:** The scanner checks a basic set of database error signatures and does not support every database engine or configuration.
-
-4. **Authentication Handling:** Authenticated testing depends on the user providing an appropriate session cookie.
-
-5. **Response Handling:** The scanner does not follow HTTP redirects and may not properly assess applications that require complex authentication or navigation.
-
-6. **Target Validation:** The current target validation is a basic safeguard and is not a complete network security boundary. DNS resolution and address validation require further hardening.
-
-7. **No Dedicated Kill Switch:** The current application does not include an in-app function to cancel an active scan.
-
-8. **Session-Based History:** Scan history is stored in PHP sessions and is limited to the latest 15 scans. It is not permanently stored in MySQL.
-
-9. **No Full Exploitation:** The scanner identifies possible SQL Injection indicators but does not extract database contents or perform full exploitation.
-
-10. **Laboratory Use:** The tool has been designed for educational testing and should not be considered a replacement for professional penetration-testing solutions.
+Use test data and authorized targets when conducting security assessments.
 
 ---
 
-## 19. Future Improvements
+## ⚠️ 19. Limitations
 
-Potential future improvements include:
+SQLi SCANNER has several limitations that should be considered when interpreting its results.
+
+### Technical Limitations
+
+- The scanner analyses URL GET parameters only.
+- It does not currently provide full POST request scanning.
+- Detection relies on response patterns, response lengths and response timing.
+- Some legitimate server responses may trigger false positives.
+- Some vulnerabilities may not be detected, resulting in false negatives.
+- Time-based detection can be affected by network latency and server performance.
+- The scanner does not automatically follow HTTP redirects.
+- HTTP requests use a 15-second timeout.
+- Authentication-dependent targets may require a valid session cookie.
+- Scan history is stored in PHP sessions and is not permanent database storage.
+- Target validation provides basic restrictions but is not a complete security boundary.
+- The application does not currently include an in-app emergency kill switch.
+- The scanner does not perform full exploitation, database extraction or privilege escalation.
+
+### Detection Limitations
+
+The scanner identifies potential SQL Injection indicators based on observed application responses.
+
+A positive result does not automatically confirm that a vulnerability exists.
+
+Similarly, a scan with no findings does not guarantee that the target application is secure.
+
+Manual verification and additional security testing are required to confirm findings.
+
+---
+
+## 🔮 20. Future Improvements
+
+The following improvements could be considered for future development:
 
 - Add POST parameter scanning.
 - Improve SQL Injection detection accuracy.
-- Add support for more database technologies.
-- Implement configurable request timeouts.
-- Add an in-app scan cancellation mechanism.
-- Improve DNS resolution and target allowlisting.
-- Introduce persistent scan history storage.
-- Add authentication and session management improvements.
-- Generate PDF reports.
-- Add more detailed vulnerability remediation guidance.
-- Improve scan validation and testing coverage.
+- Add support for additional database technologies.
+- Improve authenticated scanning functionality.
+- Introduce permanent scan history storage.
+- Add PDF report generation.
+- Improve the risk scoring mechanism.
+- Implement an in-app emergency kill switch.
+- Strengthen target validation and scanning restrictions.
+- Improve the user interface and reporting dashboard.
 
 ---
 
-## 20. Installation and Security Checklist
+## 📜 21. License
 
-Before using the application, confirm the following:
+This project is intended for educational and academic purposes.
 
-- [ ] XAMPP is installed.
-- [ ] Apache is running.
-- [ ] MySQL is running.
-- [ ] PHP cURL and MySQLi extensions are enabled.
-- [ ] The `sqli_lab` database has been imported.
-- [ ] The project is located inside the XAMPP `htdocs` directory.
-- [ ] The administrator account has been configured.
-- [ ] The application opens successfully in the browser.
-- [ ] Testing is restricted to authorised laboratory targets.
-- [ ] No credentials, session cookies, or generated authentication files are committed to GitHub.
+Refer to the `LICENSE` file in the repository for the applicable licensing terms.
 
 ---
 
-## 21. Release
+## ⚖️ 22. Legal Disclaimer
 
-### Release
+SQLi SCANNER is developed as part of an academic assignment for IKB31603 – Ethical Hacking.
 
-The project release should use the following version information:
+The tool is intended for:
 
-```text
-Version: v1.0.0
-Release Title: SQLi SCANNER v1.0.0
-```
+- Authorized security testing.
+- Educational demonstrations.
+- Controlled vulnerability assessment.
+- Cybersecurity learning and research.
 
-Create the GitHub Release after confirming that the project files, documentation, and testing evidence are ready.
+The developers do not encourage or support unauthorized scanning, exploitation or access to computer systems.
 
----
+Users are solely responsible for ensuring that they have obtained the necessary authorization before using this tool.
 
-## 22. License
+The developers are not responsible for any misuse, unauthorized scanning, damage, data loss or legal consequences resulting from improper use of this software.
 
-This project is distributed under the MIT License.
-
-See the `LICENSE` file for more information.
+**By using SQLi SCANNER, users acknowledge that all testing activities must comply with applicable laws, regulations and authorization requirements.**
 
 ---
 
-## 23. Disclaimer
+<div align="center">
 
-SQLi SCANNER is developed strictly for educational purposes, cybersecurity learning, and authorised security assessments.
+**Developed for IKB31603 – Ethical Hacking**
 
-The developer does not authorise or encourage unauthorised access, testing, exploitation, or damage to any computer system.
+🛡️ **Learn. Test. Secure.**
 
-Users are responsible for ensuring that they have appropriate permission before conducting security tests.
-
-In Malaysia, users must comply with applicable laws, including the **Computer Crimes Act 1997 (Act 563)**.
-
-The tool is provided "as is", without any guarantee of accuracy, completeness, or fitness for a particular purpose.
-
-**Use SQLi SCANNER responsibly. Test only systems you own or have explicit permission to assess.**
-
----
-
-### Developed for IKB31603 – Ethical Hacking
-**Project: SQLi SCANNER**
+</div>
