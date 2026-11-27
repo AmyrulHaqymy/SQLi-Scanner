@@ -374,90 +374,13 @@ This URL is intended for testing against the project's own vulnerable PHP page. 
 
 ### Demo: Testing Against DVWA
 
-In addition to the project's own vulnerable PHP page, SQLi SCANNER can also be demonstrated against DVWA using a local XAMPP environment.
+In addition to the project's own vulnerable PHP page, SQLi SCANNER can also be demonstrated against DVWA running in a Kali Linux virtual machine.
 
-#### Step 1: Open DVWA
+In this setup, SQLi SCANNER runs on Windows using XAMPP, while DVWA runs inside Kali Linux. Both environments communicate through a VirtualBox Host-only Adapter.
 
-Make sure Apache and MySQL are running in XAMPP.
+For the complete DVWA setup and testing procedure, refer to **Section 12.2: Damn Vulnerable Web Application (DVWA)**.
 
-Open DVWA using the local address:
-
-```text
-http://localhost/DVWA/
-```
-
-Log in to DVWA. If the default credentials have not been changed, use:
-
-- **Username:** `admin`
-- **Password:** `password`
-
-#### Step 2: Set DVWA Security Level
-
-1. Open **DVWA Security** from the navigation menu.
-2. Select **Low** as the security level.
-3. Click **Submit** to save the setting.
-4. Open the **SQL Injection** module.
-
-#### Step 3: Copy the DVWA SQL Injection URL
-
-After opening the SQL Injection module, copy the URL displayed in your browser.
-
-Example:
-
-```text
-http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit
-```
-
-#### Step 4: Copy the DVWA Session Cookie
-
-1. Keep DVWA logged in.
-2. Press `F12` to open Developer Tools.
-3. Open the **Application** tab.
-4. Select **Cookies** and choose the local DVWA website.
-5. Find the `PHPSESSID` and `security` cookie values.
-
-Use this format in the scanner's Cookie field:
-
-```text
-PHPSESSID=YOUR_SESSION_ID; security=low
-```
-
-Replace `YOUR_SESSION_ID` with your actual local session ID.
-
-**Important:** Do not share your session cookie or upload it to GitHub.
-
-#### Step 5: Run SQLi SCANNER Against DVWA
-
-1. Open SQLi SCANNER:
-
-```text
-http://localhost/SQLi-SCANNER/
-```
-
-2. Enter the DVWA SQL Injection URL in the Target URL field:
-
-```text
-http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit
-```
-
-3. Enter the DVWA session cookie in the Cookie field.
-4. Start the scan.
-5. Wait for the scanning process to finish.
-
-#### Step 6: Review the Results
-
-After the scan is completed, review the scanner output for possible:
-
-- Error-Based SQL Injection indicators.
-- Boolean-Based SQL Injection indicators.
-- Time-Based SQL Injection indicators.
-- Risk score and severity level.
-
-For a controlled comparison, you can change the DVWA security level and run the test again. Record the security level and results for your assignment report.
-
-**Note:** DVWA is a separate testing application and has its own database. The DVWA database is different from the `sqli_lab` database used by `vuln.php`.
-
-Only test your own local DVWA installation.
+**Important:** Use the Kali Linux Host-only IP address as the DVWA target in SQLi SCANNER. Do not use `localhost` or `127.0.0.1` as the DVWA target from Windows.
 
 ---
 
@@ -544,56 +467,125 @@ It is used only for educational and controlled security testing.
 
 The scanner can also be evaluated using DVWA, a deliberately vulnerable web application designed for security testing and learning.
 
-DVWA is hosted locally using XAMPP. Apache is used as the web server, while MySQL is used for the DVWA database.
+In this testing environment, DVWA runs inside a Kali Linux virtual machine, while SQLi SCANNER runs on Windows using XAMPP.
 
-#### Step 1: Prepare DVWA in XAMPP
+The two environments communicate through a VirtualBox Host-only Adapter. Kali Linux uses NAT for internet access and a Host-only Adapter for communication with the Windows host.
 
-1. Make sure XAMPP Control Panel is open.
-2. Start Apache and MySQL.
-3. Place the DVWA folder inside the XAMPP `htdocs` directory.
+#### Step 1: Configure the VirtualBox Network
 
-Example folder location:
+Open VirtualBox and select the Kali Linux virtual machine.
 
-```text
-C:\xampp\htdocs\DVWA
+Go to **Settings → Network** and configure the adapters as follows:
+
+| Adapter | Attached To | Purpose |
+|---|---|---|
+| Adapter 1 | NAT | Provides internet access to Kali Linux. |
+| Adapter 2 | Host-only Adapter | Allows communication between Windows and Kali Linux. |
+
+Save the settings and start the Kali Linux virtual machine.
+
+#### Step 2: Start Apache and MariaDB in Kali Linux
+
+Open the Kali Linux terminal and start the required services:
+
+```bash
+sudo service apache2 start
+sudo service mariadb start
 ```
 
-#### Step 2: Open DVWA
+Make sure both services are running.
 
-Open DVWA in your browser using its local address.
+#### Step 3: Prepare DVWA
 
-Example:
-
-```text
-http://localhost/DVWA/
-```
-
-If your DVWA folder has a different name, replace `DVWA` in the URL with your actual folder name.
-
-#### Step 3: Configure the DVWA Database
-
-1. Open the DVWA configuration file:
+DVWA is hosted in the Kali Linux Apache web server directory:
 
 ```text
-C:\xampp\htdocs\DVWA\config\config.inc.php
+/var/www/html/dvwa
 ```
 
-2. Check the database configuration and make sure it matches your local MySQL settings in XAMPP.
-3. Open the DVWA setup page:
+If DVWA has not been installed, clone the repository:
+
+```bash
+cd /var/www/html
+sudo git clone https://github.com/digininja/DVWA.git dvwa
+```
+
+Prepare the configuration file and set the required permissions:
+
+```bash
+cd /var/www/html/dvwa
+sudo cp config/config.inc.php.dist config/config.inc.php
+sudo chown -R www-data:www-data /var/www/html/dvwa
+```
+
+#### Step 4: Configure the DVWA Database
+
+Open the DVWA configuration file:
+
+```bash
+sudo nano /var/www/html/dvwa/config/config.inc.php
+```
+
+Configure the database settings as follows:
+
+```php
+$_DVWA[ 'db_server' ]   = '127.0.0.1';
+$_DVWA[ 'db_database' ] = 'dvwa';
+$_DVWA[ 'db_user' ]     = 'dvwa';
+$_DVWA[ 'db_password' ] = 'p@ssw0rd';
+$_DVWA[ 'db_port' ]     = '3306';
+```
+
+Save the configuration file.
+
+Next, open MariaDB:
+
+```bash
+sudo mariadb
+```
+
+Create the DVWA database and database user:
+
+```sql
+CREATE USER 'dvwa'@'localhost' IDENTIFIED BY 'p@ssw0rd';
+CREATE DATABASE dvwa;
+GRANT ALL PRIVILEGES ON dvwa.* TO 'dvwa'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+Test the database connection:
+
+```bash
+mariadb -u dvwa -p -h 127.0.0.1 dvwa
+```
+
+Enter the configured database password when prompted.
+
+If the connection is successful, the MariaDB prompt will appear.
+
+#### Step 5: Initialise the DVWA Database
+
+Open the browser inside Kali Linux and navigate to:
 
 ```text
-http://localhost/DVWA/setup.php
+http://127.0.0.1/dvwa/setup.php
 ```
 
-4. Click **Create / Reset Database** to initialise the DVWA database.
-5. Return to the DVWA login page.
+Click **Create / Reset Database** to initialise the DVWA database.
 
-If the default credentials have not been changed, use:
+After successful initialisation, open the DVWA login page:
+
+```text
+http://127.0.0.1/dvwa/login.php
+```
+
+Use the default login credentials:
 
 - **Username:** `admin`
 - **Password:** `password`
 
-#### Step 4: Set DVWA Security Level
+#### Step 6: Set the DVWA Security Level
 
 1. Log in to DVWA.
 2. Open **DVWA Security** from the navigation menu.
@@ -601,62 +593,94 @@ If the default credentials have not been changed, use:
 4. Click **Submit** to save the setting.
 5. Open the **SQL Injection** module.
 
-#### Step 5: Get the DVWA SQL Injection URL
+#### Step 7: Get the Kali Linux Host-only IP Address
 
-After opening the SQL Injection module, use the URL displayed in your browser.
+Open the Kali Linux terminal and run:
+
+```bash
+ip a
+```
+
+Identify the IP address assigned to the Host-only network interface (`eth1`).
 
 Example:
 
 ```text
-http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit
+192.168.56.108
 ```
 
-The `id` parameter is used by the SQL Injection module for testing.
+The IP address may be different depending on the VirtualBox network configuration.
 
-#### Step 6: Get the DVWA Session Cookie
+#### Step 8: Access DVWA from Windows
 
-SQLi SCANNER may require an authenticated DVWA session to access the SQL Injection page.
+On the Windows machine, open a browser and access DVWA using the Kali Linux Host-only IP address.
 
-1. Keep DVWA logged in.
-2. Open your browser Developer Tools by pressing `F12`.
+Example:
+
+```text
+http://192.168.56.108/dvwa/
+```
+
+Open the SQL Injection module using:
+
+```text
+http://192.168.56.108/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit
+```
+
+Replace `192.168.56.108` with the current Host-only IP address of the Kali Linux virtual machine if it has changed.
+
+**Important:** Do not use `localhost` or `127.0.0.1` for the DVWA target URL in Windows. These addresses refer to the Windows machine, not the Kali Linux virtual machine.
+
+#### Step 9: Get the DVWA Session Cookie
+
+SQLi SCANNER requires a valid authenticated DVWA session to access the SQL Injection page.
+
+1. Keep DVWA logged in through the Windows browser.
+2. Press `F12` to open Developer Tools.
 3. Open the **Application** tab.
-4. Select **Cookies** and choose the local DVWA website.
+4. Select **Cookies** and choose the DVWA website using the Kali Host-only IP address.
 5. Find the `PHPSESSID` and `security` cookie values.
-6. Copy the values into the scanner's Cookie field using this format:
+
+Use the following format in the scanner's Cookie field:
 
 ```text
 PHPSESSID=YOUR_SESSION_ID; security=low
 ```
 
-Replace `YOUR_SESSION_ID` with your actual local session ID.
+Replace `YOUR_SESSION_ID` with the actual session ID from your browser.
 
 **Important:** Do not share your session cookie or upload it to GitHub.
 
-#### Step 7: Run SQLi SCANNER Against DVWA
+#### Step 10: Run SQLi SCANNER Against DVWA
 
-1. Open SQLi SCANNER:
+1. Make sure Apache and MySQL are running in XAMPP on Windows.
+2. Open SQLi SCANNER:
 
 ```text
 http://localhost/SQLi-SCANNER/
 ```
 
-2. Enter the DVWA SQL Injection URL in the target URL field:
+3. Log in to the scanner.
+4. Enter the DVWA SQL Injection URL in the Target URL field:
 
 ```text
-http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit
+http://192.168.56.108/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit
 ```
 
-3. Enter the DVWA session cookie in the Cookie field.
-4. Start the scan.
-5. Review the detection results and risk assessment.
+5. Enter the DVWA session cookie in the Cookie field.
+6. Start the scan.
+7. Wait for the scanning process to finish.
 
-#### Step 8: Review the Results
+Replace `192.168.56.108` with the current Kali Linux Host-only IP address if it has changed.
 
-Check the scanner output for possible:
+#### Step 11: Review the Results
+
+After the scan is completed, review the scanner output for possible:
 
 - Error-Based SQL Injection indicators.
 - Boolean-Based SQL Injection indicators.
 - Time-Based SQL Injection indicators.
+- Risk score and severity level.
 
 For a controlled comparison, you can change the DVWA security level and run the test again. Record the security level and results for your assignment report.
 
@@ -671,14 +695,16 @@ For a controlled comparison, you can change the DVWA security level and run the 
 
 **Testing Notes:**
 
-- DVWA is a separate testing application and has its own database.
-- The DVWA database is different from the `sqli_lab` database used by `vuln.php`.
-- Make sure Apache and MySQL are running in XAMPP.
+- DVWA runs inside Kali Linux, while SQLi SCANNER runs on Windows using XAMPP.
+- VirtualBox NAT provides internet access to Kali Linux.
+- The Host-only Adapter allows Windows to communicate with DVWA in Kali Linux.
+- Apache and MariaDB must be running in Kali Linux for DVWA.
+- Apache and MySQL must be running in Windows XAMPP for SQLi SCANNER.
+- The DVWA database is separate from the `sqli_lab` database used by `vuln.php`.
 - Make sure the DVWA session cookie is valid.
-- If DVWA redirects to the login page, check the session cookie and log in again.
 - SQLi SCANNER tests GET query parameters only.
 - Detection results are indicators and do not guarantee that a vulnerability exists.
-- Use DVWA only in your own local testing environment.
+- Use DVWA only in your own controlled testing environment.
 
 ---
 
