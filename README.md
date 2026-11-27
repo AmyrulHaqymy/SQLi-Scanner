@@ -148,6 +148,9 @@ SQLi-SCANNER/
 │       ├── phpmyadmin-database.png
 │       ├── ngrok-command.png
 │       └── ngrok-public-url.png
+│       └── SQLi Scanner Dashboard.png
+│       └── SQLi Scanner Result.jpeg
+│
 │
 ├── index.php
 ├── auth.php
